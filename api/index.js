@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const Moralis = require('moralis').default;
 const { EvmChain } = require('@moralisweb3/common-evm-utils');
 
@@ -37,9 +38,10 @@ async function getBalance(address) {
     metadata: nft.result.metadata,
   }));
 
-  return { native, tokens, nfts };
+  return { address, native, tokens, nfts };
 }
 
+app.use(cors());
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
